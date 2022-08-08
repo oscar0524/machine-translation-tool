@@ -1,1 +1,29 @@
 /* You can add global styles to this file, and also import other style files */
+@import './scss/app.scss';
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.master-body {
+    background-color: rgba(0, 0, 0, 0.1);
+    position: absolute; // Add this to replace height: 100%
+    top: 0; // Add this to replace height: 100%
+    bottom: 0; // Add this to replace height: 100%
+    left: 0; // Add this to replace height: 100%
+    right: 0; // Add this to replace height: 100%
+}
+
+.master-spacer {
+    flex: 1 1 auto;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}

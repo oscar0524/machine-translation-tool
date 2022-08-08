@@ -1,0 +1,29 @@
+<button mat-icon-button>
+  <mat-icon>arrow_back</mat-icon>
+</button>
+<h2>{{chapter.novelName|novelTranslate}} {{chapter.episodeName|novelTranslate}}</h2>
+<h1>{{chapter.name|novelTranslate}}</h1>
+<mat-divider></mat-divider>
+<mat-toolbar>
+  <span class="master-spacer"></span>
+  <!-- <button mat-raised-button color="primary" (click)="checkSentenceStructure()">check Sentence Structure</button> -->
+  <button mat-raised-button color="primary" (click)="runTranslator()">重新翻譯</button>
+</mat-toolbar>
+<mat-divider></mat-divider>
+<table mat-table [dataSource]="chapter.sentences" style="width: 100%;">
+
+  <ng-container matColumnDef="original">
+    <th mat-header-cell *matHeaderCellDef> 原文 </th>
+    <td mat-cell *matCellDef="let item" width="50%" style="padding-right:3px ;"> {{item.original}} </td>
+  </ng-container>
+
+
+  <ng-container matColumnDef="translate">
+    <th mat-header-cell *matHeaderCellDef> 譯文 </th>
+    <td mat-cell *matCellDef="let item" width="50%" style="padding-left:3px ;"> {{item.translation}} </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="novelDataDisplayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: novelDataDisplayedColumns;"></tr>
+
+</table>

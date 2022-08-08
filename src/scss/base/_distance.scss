@@ -1,0 +1,10 @@
+// 定義基礎距離
+$distance-extra-large: 40px;
+$distance-large: 30px;
+$distance-midium: 20px;
+$distance-small: 10px;
+$distance-none: 0px;
+
+//製作成list
+$distance: $distance-none, $distance-small, $distance-midium, $distance-large,
+  $distance-extra-large;

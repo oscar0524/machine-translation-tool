@@ -1,0 +1,43 @@
+//匯入定義基礎距離
+@import '../base/_distance.scss';
+@import '../base/_size.scss';
+
+@for $s from 1 through length($size) {
+  //$size 有幾個項目，就跑幾次迴圈
+
+  .m-#{nth($size, $s)} {
+    margin: nth($distance, $s) !important;
+  }
+}
+
+@for $s from 1 through length($size) {
+  //$size 有幾個項目，就跑幾次迴圈
+
+  .mt-#{nth($size, $s)} {
+    margin-top: nth($distance, $s) !important;
+  }
+}
+
+@for $s from 1 through length($size) {
+  //$size 有幾個項目，就跑幾次迴圈
+
+  .ml-#{nth($size, $s)} {
+    margin-left: nth($distance, $s) !important;
+  }
+}
+
+@for $s from 1 through length($size) {
+  //$size 有幾個項目，就跑幾次迴圈
+
+  .mr-#{nth($size, $s)} {
+    margin-right: nth($distance, $s) !important;
+  }
+}
+
+@for $s from 1 through length($size) {
+  //$size 有幾個項目，就跑幾次迴圈
+
+  .mb-#{nth($size, $s)} {
+    margin-bottom: nth($distance, $s) !important;
+  }
+}

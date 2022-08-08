@@ -1,0 +1,65 @@
+.app-container {
+    position: absolute; // Add this to replace height: 100%
+    top: 0; // Add this to replace height: 100%
+    bottom: 0; // Add this to replace height: 100%
+    left: 0; // Add this to replace height: 100%
+    right: 0; // Add this to replace height: 100%
+}
+
+.sidenav {
+    min-width: 365px;
+    z-index: 3;
+}
+
+.sidenav-container {
+    height: 100vh;
+    display: flex;
+    flex-flow: column;
+}
+
+.sidenav-content {
+    flex-grow: 1;
+    position: relative;
+}
+
+.sidenav-inner-content {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+// .scrollbar-cus {
+//   position: fixed;
+//   width: 100%;
+//   height: calc(100% - 64px);
+//   max-width: 100%;
+//   max-height: 100%;
+//   top: 64px;
+// }
+
+// .mat-toolbar {
+//   position: fixed;
+//   position: -webkit-sticky;
+//   /* For macOS/iOS Safari */
+//   top: 0;
+//   /* Sets the sticky toolbar to be on top */
+//   z-index: 2;
+//   /* Ensure that your app's content doesn't overlap the toolbar */
+// }
+
+
+.drop-up-btn {
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    z-index: 2;
+}
+
+mat-progress-bar {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    z-index: 2;
+}

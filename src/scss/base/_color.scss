@@ -1,0 +1,7 @@
+//繼承 Element UI Scss
+@import '../../element-variables.scss';
+
+$color-text: 'primary', 'white', 'black', 'base';
+
+$color: $--color-primary, $--color-white, $--color-black,
+  $--background-color-base;
