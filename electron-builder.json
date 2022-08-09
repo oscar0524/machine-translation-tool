@@ -1,0 +1,31 @@
+{
+  "asar": false,
+  "directories": {
+    "output": "release/"
+  },
+  "files": [
+    "app/**/*.js",
+    "dist/**/*"
+  ],
+  "win": {
+    "icon": "dist/assets/icons",
+    "target": [
+      "portable"
+    ]
+  },
+  "portable": {
+    "splashImage": "dist/assets/icons/electron.bmp"
+  },
+  "mac": {
+    "icon": "dist/assets/icons",
+    "target": [
+      "dmg"
+    ]
+  },
+  "linux": {
+    "icon": "dist/assets/icons",
+    "target": [
+      "AppImage"
+    ]
+  }
+}

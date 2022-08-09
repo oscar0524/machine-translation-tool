@@ -1,1 +1,19 @@
-<p>novel works!</p>
+<button mat-button class="mb-sm" (click)="goBack()">
+    <mat-icon>arrow_back</mat-icon>
+    返回
+</button>
+<mat-card class="mb-sm">
+    <mat-card-title>{{novelName}}</mat-card-title>
+    <mat-card-subtitle>作者：{{writerName}}</mat-card-subtitle>
+</mat-card>
+
+<mat-expansion-panel *ngFor="let episode of episodes">
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            {{episode.episodeName}}
+        </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-action-list>
+        <button mat-list-item *ngFor="let item of episode.chapters" (click)="goChapter(item)"> {{item[1]}} </button>
+    </mat-action-list>
+</mat-expansion-panel>

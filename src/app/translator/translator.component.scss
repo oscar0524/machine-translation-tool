@@ -3,7 +3,7 @@
 }
 
 .mat-row:hover {
-  background-color: rgba(0, 0, 0, 0.03)
+  background-color: rgba(0, 0, 0, 0.1)
 }
 
 // .mat-column-original {
@@ -14,6 +14,6 @@
 //   text-align: center;
 // }
 
-// .mat-table {
-//   // background-color: #f5f5f5;
-// }
+.mat-table {
+  // background-color: rgba(0, 0, 0, 0);
+}

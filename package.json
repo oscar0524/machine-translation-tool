@@ -1,6 +1,7 @@
 {
   "name": "machine-translation-tool",
   "version": "0.0.0",
+  "main": "app/main.js",
   "scripts": {
     "ng": "ng",
     "ng:serve": "ng serve --poll 1000",
@@ -9,8 +10,12 @@
     "ng:test": "ng test",
     "electron": "electron",
     "electron:tsc": "tsc -p tsconfig.serve.json",
-    "electron:serve": "wait-on tcp:4200 && npm run electron:tsc && electron ./app/main.js --serve",
-    "start": "npm-run-all -p electron:serve ng:serve"
+    "electron:start": "ng build --base-href ./ && npm run electron:tsc && electron .",
+    "electron:serve": "wait-on tcp:4200 && npm run electron:tsc && electron . --serve",
+    "electron:build": "npm run build:prod && electron-builder build --publish=never",
+    "start": "npm-run-all -p electron:serve ng:serve",
+    "build": "npm run electron:tsc && ng build --base-href ./",
+    "build:prod": "npm run build -- -c production"
   },
   "private": true,
   "dependencies": {

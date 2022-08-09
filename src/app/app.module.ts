@@ -23,6 +23,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CdkTreeModule } from '@angular/cdk/tree';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatCardModule } from '@angular/material/card';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 const ngMaterialModules = [
   BrowserAnimationsModule,
@@ -42,7 +44,9 @@ const ngMaterialModules = [
   MatCheckboxModule,
   CdkTreeModule,
   MatTreeModule,
-  MatButtonToggleModule
+  MatButtonToggleModule,
+  MatCardModule,
+  MatExpansionModule
 ];
 
 import { NgScrollbarModule } from 'ngx-scrollbar';

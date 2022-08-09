@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain, BrowserView } from 'electron';
+import { app, BrowserWindow, ipcMain, BrowserView, screen } from 'electron';
 import * as path from 'path';
 import * as fs from 'fs';
 import * as url from 'url';
@@ -6,20 +6,19 @@ import * as url from 'url';
 const args = process.argv.slice(1),
     serve = args.some(val => val === '--serve');
 
-
+const translateReadyRequest = 'translate-ready-request';
+const translateReadyResponse = 'translate-ready-response';
 const translateRequest = 'translate-request';
 const translateResponse = 'translate-response';
 const progressValueSet = 'progress-value-set';
 const titleChange = 'title-change';
 
 function createWindow(): BrowserWindow {
-    // const electronScreen = screen;
-    // const size = electronScreen.getPrimaryDisplay().workAreaSize;
 
     // Create the browser window.
     const mainWindow = new BrowserWindow({
-        width: 800,
-        height: 600,
+        // width: 800,
+        // height: 600,
         webPreferences: {
             nodeIntegration: true,
             allowRunningInsecureContent: (serve) ? true : false,
@@ -27,6 +26,7 @@ function createWindow(): BrowserWindow {
             webSecurity: false
         },
     });
+    mainWindow.maximize()
 
     if (serve) {
         const debug = require('electron-debug');
@@ -42,6 +42,8 @@ function createWindow(): BrowserWindow {
             // Path when running electron in local folder
             pathIndex = '../dist/index.html';
         }
+
+        // console.log(pathIndex)
 
         mainWindow.loadURL(url.format({
             pathname: path.join(__dirname, pathIndex),
@@ -59,7 +61,7 @@ function createWindow(): BrowserWindow {
     });
 
 
-
+    // ---------- deeplView ----------
     let deeplView = new BrowserView({
         webPreferences: {
             nodeIntegration: true,
@@ -68,14 +70,30 @@ function createWindow(): BrowserWindow {
         }
     })
     mainWindow.setBrowserView(deeplView)
-    // deeplView.setBounds({ x: size.width - 800, y: size.height - 600, width: 800, height: 600 })
     deeplView.setBounds({ x: -800, y: -600, width: 800, height: 600 })
+    // ---------- debug deeplView ----------
+    // let deeplView = new BrowserWindow({
+    //     webPreferences: {
+    //         nodeIntegration: true,
+    //         allowRunningInsecureContent: (serve) ? true : false,
+    //         webSecurity: false, preload: path.join(__dirname, "deepl-preload.js")
+    //     }
+    // })
+    // -------------------------------------
+
     deeplView.webContents.loadURL('https://www.deepl.com/translator')
 
 
 
-
+    ipcMain.handle(translateReadyRequest, async (event, arg) => {
+        // console.log(`ipcMain handle ${translateRequest}`)
+        deeplView.webContents.send(translateReadyRequest)
+    })
+    ipcMain.handle(translateReadyResponse, async (event, arg) => {
+        mainWindow.webContents.send(translateReadyResponse, arg)
+    })
     ipcMain.handle(translateRequest, async (event, arg) => {
+        // console.log(`ipcMain handle ${translateRequest}`)
         deeplView.webContents.send(translateRequest, arg)
     })
     ipcMain.handle(translateResponse, async (event, arg) => {
@@ -89,12 +107,6 @@ function createWindow(): BrowserWindow {
     ipcMain.handle(titleChange, (event, arg) => {
         mainWindow.webContents.send(titleChange, arg)
     })
-
-
-    // deeplView.webContents.openDevTools()
-    mainWindow.webContents.openDevTools()
-    mainWindow.maximize()
-
 
     return mainWindow;
 }

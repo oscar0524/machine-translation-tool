@@ -1,6 +1,15 @@
 const { ipcRenderer } = require('electron')
 
-document.addEventListener("DOMContentLoaded", function () {
+const translateReadyRequest = 'translate-ready-request';
+const translateReadyResponse = 'translate-ready-response';
+const translateRequest = 'translate-request';
+const translateResponse = 'translate-response';
+
+let webIsLoad = false;
+
+// console.log('deepl-preload')
+function main() {
+  // console.log('document load')
   translatorResultEl = document.getElementById('target-dummydiv')
   const initTranslateValue = translatorResultEl.textContent
   translateValue = initTranslateValue
@@ -17,7 +26,8 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelector('.lmt__source_textarea').dispatchEvent(e);
   }
 
-  ipcRenderer.on('translate-request', (ev, arg) => {
+  ipcRenderer.on(translateRequest, (ev, arg) => {
+    // console.log('on translate-request')
     translateArg = arg
     setSentence(translateArg.original)
 
@@ -25,11 +35,26 @@ document.addEventListener("DOMContentLoaded", function () {
       if (translateValue != translatorResultEl.textContent) {
         translateArg.translate = translatorResultEl.textContent
         // console.log('dom change:', translateArg.text)
-        ipcRenderer.invoke('translate-response', translateArg)
+        ipcRenderer.invoke(translateResponse, translateArg)
         translateValue = initTranslateValue
         setSentence(initTranslateValue)
         clearInterval(timeInterval)
       }
     }, 500);
   })
-});
+}
+
+ipcRenderer.on(translateReadyRequest, (ev, arg) => {
+  console.log(`${translateReadyRequest} : ${webIsLoad}`)
+  ipcRenderer.invoke(translateReadyResponse, webIsLoad)
+})
+
+let checkLoad = setInterval(() => {
+  translatorResultEl = document.getElementById('target-dummydiv')
+  if (translatorResultEl) {
+    // console.log('loading!!!!!!!!')
+    webIsLoad = true;
+    main()
+    clearInterval(checkLoad)
+  }
+}, 500);

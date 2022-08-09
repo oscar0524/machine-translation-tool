@@ -1,15 +1,17 @@
-<mat-form-field appearance="fill">
-  <mat-label>URL</mat-label>
-  <input matInput [(ngModel)]="novelUrl" (keyup.enter)="searchNovel()">
-  <button mat-icon-button matSuffix (click)="searchNovel()">
-    <mat-icon>search</mat-icon>
-  </button>
-</mat-form-field>
-<mat-divider></mat-divider>
-<mat-toolbar>
-  <span class="master-spacer"></span>
-  <!-- <button mat-raised-button color="primary" (click)="checkSentenceStructure()">check Sentence Structure</button> -->
-  <button mat-raised-button color="primary" (click)="resetSearch()">Reset</button>
-</mat-toolbar>
+<mat-card>
+  <mat-card-title>輸入小說網址</mat-card-title>
+  <mat-card-subtitle>目前僅支援 成為小說家吧 (小說介紹頁 及 章節頁)</mat-card-subtitle>
 
-<mat-divider></mat-divider>
+  <mat-form-field appearance="fill">
+    <mat-label>URL</mat-label>
+    <input matInput [(ngModel)]="novelUrl" (keyup.enter)="searchNovel()">
+    <button mat-icon-button matSuffix (click)="searchNovel()">
+      <mat-icon>search</mat-icon>
+    </button>
+  </mat-form-field>
+</mat-card>
+
+
+<mat-card class="mt-sm">
+  <mat-card-title>最近閱讀</mat-card-title>
+</mat-card>

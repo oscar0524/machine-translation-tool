@@ -1,19 +1,19 @@
-<button mat-button class="mb-mid">
+<button mat-button class="mb-sm" (click)="goBack()">
   <mat-icon>arrow_back</mat-icon>
   返回
 </button>
-<h2>{{chapter.novelName.original}} {{chapter.episodeName.original}}</h2>
-<h1>{{chapter.name.original}}</h1>
+<mat-card *ngIf="chapter">
+  <mat-card-title>{{chapter.name.original}}</mat-card-title>
+  <mat-card-subtitle>{{chapter.novelName.original}} {{chapter.episodeName.original}}</mat-card-subtitle>
 
-<mat-divider></mat-divider>
-<mat-toolbar>
-  <span class="master-spacer"></span>
-  <!-- <button mat-raised-button color="primary" (click)="checkSentenceStructure()">check Sentence Structure</button> -->
-  <button mat-raised-button color="primary" (click)="goTranslator()">前往翻譯</button>
-</mat-toolbar>
-<mat-divider></mat-divider>
-<!-- <div [innerText]="chapterContent"></div> -->
-<div class="p-sm">
+  <mat-card-actions align="end">
+    <button mat-button (click)="goTranslator()">前往翻譯</button>
+  </mat-card-actions>
 
+</mat-card>
+<mat-card *ngIf="chapter" class="mt-sm">
+  <!-- <div [innerText]="chapterContent"></div> -->
+  <!-- <div class="p-sm"> -->
   <div *ngFor="let item of chapter.sentences" [innerText]="item | novelTranslate:'\r\n'"></div>
-</div>
+  <!-- </div> -->
+</mat-card>

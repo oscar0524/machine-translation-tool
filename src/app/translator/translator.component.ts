@@ -1,9 +1,11 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, ApplicationRef, Component, OnInit, OnDestroy } from '@angular/core';
+import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { ElectronService } from '../services/electron.service';
 import { Chapter } from '../model/chapter';
 import { TranslateArg } from '../model/translate-arg';
 import { IpcChannel } from '../model/ipc-channel';
+import { interval } from 'rxjs';
 
 const chineseConv = require('chinese-conv');
 
@@ -21,11 +23,16 @@ const TRANSLATOR_SENTENCES = 'translator-sentences';
 export class TranslatorComponent implements OnInit, OnDestroy {
   novelDataDisplayedColumns = ['original', 'translate'];
   progressValue = 0;
+  checkTranslateReady: any = null;
+
+  translateReady = false;
 
   chapter: Chapter;
   re = new RegExp('^　', 'g');
 
-  constructor(private router: Router,
+  constructor(
+    private router: Router,
+    private location: Location,
     private electron: ElectronService,
     private cdRef: ChangeDetectorRef,
     private aRef: ApplicationRef) {
@@ -38,11 +45,29 @@ export class TranslatorComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.electron.ipcRenderer.removeAllListeners(IpcChannel.translateReadyResponse);
     this.electron.ipcRenderer.removeAllListeners(IpcChannel.translateResponse);
   }
 
   ngOnInit(): void {
+    this.electron.ipcRenderer.addListener(IpcChannel.translateReadyResponse, (ev, arg) => this.translateReadySet(arg));
     this.electron.ipcRenderer.addListener(IpcChannel.translateResponse, (ev, arg) => this.translateListener(arg));
+
+    this.checkTranslateReady = setInterval(() => {
+      this.electron.ipcRenderer.invoke(IpcChannel.translateReadyRequest)
+    }, 1000)
+  }
+
+  goBack() {
+    this.location.back();
+  }
+
+  translateReadySet(value: boolean) {
+    this.translateReady = value
+    if (value) {
+      this.cdRef.detectChanges();
+      clearInterval(this.checkTranslateReady)
+    }
   }
 
   translateListener(response: TranslateArg) {

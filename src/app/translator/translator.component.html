@@ -1,15 +1,25 @@
-<button mat-icon-button>
+<button mat-button class="mb-sm" (click)="goBack()">
   <mat-icon>arrow_back</mat-icon>
+  返回
 </button>
-<h2>{{chapter.novelName|novelTranslate}} {{chapter.episodeName|novelTranslate}}</h2>
-<h1>{{chapter.name|novelTranslate}}</h1>
-<mat-divider></mat-divider>
-<mat-toolbar>
-  <span class="master-spacer"></span>
-  <!-- <button mat-raised-button color="primary" (click)="checkSentenceStructure()">check Sentence Structure</button> -->
-  <button mat-raised-button color="primary" (click)="runTranslator()">重新翻譯</button>
-</mat-toolbar>
-<mat-divider></mat-divider>
+<mat-card class="mb-sm">
+  <mat-card-title>{{chapter.name|novelTranslate}}</mat-card-title>
+  <mat-card-subtitle>{{chapter.novelName|novelTranslate}} {{chapter.episodeName|novelTranslate}}</mat-card-subtitle>
+  <mat-card-actions align="end">
+    <button mat-button [disabled]="!translateReady">
+      <mat-icon>delete</mat-icon>
+      清除翻譯
+    </button>
+    <button mat-button [disabled]="!translateReady" (click)="runTranslator()">
+      <mat-icon>sync</mat-icon>
+      重新翻譯
+    </button>
+    <button mat-button [disabled]="!translateReady">
+      <mat-icon>done</mat-icon>
+      套用翻譯
+    </button>
+  </mat-card-actions>
+</mat-card>
 <table mat-table [dataSource]="chapter.sentences" style="width: 100%;">
 
   <ng-container matColumnDef="original">
