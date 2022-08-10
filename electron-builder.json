@@ -7,6 +7,9 @@
     "app/**/*.js",
     "dist/**/*"
   ],
+  "asarUnpack": [
+    "dist/assets/database/sqlite.db"
+  ],
   "win": {
     "icon": "dist/assets/icons",
     "target": [
