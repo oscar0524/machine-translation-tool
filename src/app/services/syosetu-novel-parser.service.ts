@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import * as cheerio from 'cheerio';
-import { Novel } from '../model/novel';
-import { Translate } from '../model/translate';
 
 @Injectable({
   providedIn: 'root'
@@ -69,24 +67,28 @@ export class SyosetuNovelParserService {
     return chapterTitle
   }
 
-  public parseEpisodes(html: string): { episodeName: string; chapters: any[]; }[] {
+  // 章 Chapter 節 setion
+  public parseChapters(html: string): { chapterTitle: string; setions: { href: string, title: string }[] }[] {
     let splitHtml = html.split('<div class="chapter_title">')
     // console.log(splitHtml)
-    let response: { episodeName: string; chapters: any[]; }[] = []
+    let response: { chapterTitle: string; setions: { href: string, title: string }[] }[] = []
     for (let index = 1; index < splitHtml.length; index++) {
       const value = splitHtml[index]
-      let episodeName = this.parseChapterTitle('<div class="chapter_title">' + value)
+      let chapterTitle = this.parseChapterTitle('<div class="chapter_title">' + value)
       const $ = cheerio.load(value, {
         xmlMode: false,
         decodeEntities: false
       });
-      const chapters: any[] = [];
+      const setions: { href: string, title: string }[] = [];
       $('.novel_sublist2 a').each(function (this, data) {
-        chapters.push([$(this).attr('href'), $(this).text()]);
+        setions.push({
+          href: $(this).attr('href') ?? '',
+          title: $(this).text()
+        });
       });
       response.push({
-        episodeName,
-        chapters
+        chapterTitle: chapterTitle,
+        setions: setions
       })
     }
 

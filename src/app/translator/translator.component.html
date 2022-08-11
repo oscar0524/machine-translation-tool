@@ -3,8 +3,8 @@
   返回
 </button>
 <mat-card class="mb-sm">
-  <mat-card-title>{{chapter.name|novelTranslate}}</mat-card-title>
-  <mat-card-subtitle>{{chapter.novelName|novelTranslate}} {{chapter.episodeName|novelTranslate}}</mat-card-subtitle>
+  <!-- <mat-card-title>{{chapter.name|novelTranslate}}</mat-card-title> -->
+  <!-- <mat-card-subtitle>{{chapter.novelName|novelTranslate}} {{chapter.episodeName|novelTranslate}}</mat-card-subtitle> -->
   <mat-card-actions align="end">
     <button mat-button [disabled]="!translateReady">
       <mat-icon>delete</mat-icon>
@@ -20,7 +20,7 @@
     </button>
   </mat-card-actions>
 </mat-card>
-<table mat-table [dataSource]="chapter.sentences" style="width: 100%;">
+<!-- <table mat-table [dataSource]="chapter.sentences" style="width: 100%;">
 
   <ng-container matColumnDef="original">
     <th mat-header-cell *matHeaderCellDef> 原文 </th>
@@ -36,4 +36,4 @@
   <tr mat-header-row *matHeaderRowDef="novelDataDisplayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: novelDataDisplayedColumns;"></tr>
 
-</table>
+</table> -->

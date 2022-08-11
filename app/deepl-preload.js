@@ -1,9 +1,5 @@
 const { ipcRenderer } = require('electron')
-
-const translateReadyRequest = 'translate-ready-request';
-const translateReadyResponse = 'translate-ready-response';
-const translateRequest = 'translate-request';
-const translateResponse = 'translate-response';
+const ipcChannel = require('./ipc-channel')
 
 let webIsLoad = false;
 
@@ -26,7 +22,7 @@ function main() {
     document.querySelector('.lmt__source_textarea').dispatchEvent(e);
   }
 
-  ipcRenderer.on(translateRequest, (ev, arg) => {
+  ipcRenderer.on(ipcChannel.translateRequest, (ev, arg) => {
     // console.log('on translate-request')
     translateArg = arg
     setSentence(translateArg.original)
@@ -35,7 +31,7 @@ function main() {
       if (translateValue != translatorResultEl.textContent) {
         translateArg.translate = translatorResultEl.textContent
         // console.log('dom change:', translateArg.text)
-        ipcRenderer.invoke(translateResponse, translateArg)
+        ipcRenderer.invoke(ipcChannel.translateResponse, translateArg)
         translateValue = initTranslateValue
         setSentence(initTranslateValue)
         clearInterval(timeInterval)
@@ -44,9 +40,9 @@ function main() {
   })
 }
 
-ipcRenderer.on(translateReadyRequest, (ev, arg) => {
-  console.log(`${translateReadyRequest} : ${webIsLoad}`)
-  ipcRenderer.invoke(translateReadyResponse, webIsLoad)
+ipcRenderer.on(ipcChannel.translateReadyRequest, (ev, arg) => {
+  console.log(`${ipcChannel.translateReadyRequest} : ${webIsLoad}`)
+  ipcRenderer.invoke(ipcChannel.translateReadyResponse, webIsLoad)
 })
 
 let checkLoad = setInterval(() => {

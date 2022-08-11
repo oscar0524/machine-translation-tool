@@ -60,7 +60,7 @@ import { NovelTranslatePipe } from './pipes/novel-translate.pipe';
 // Components
 import { HomeComponent } from './home/home.component';
 import { NovelComponent } from './novel/novel.component';
-import { ChapterComponent } from './chapter/chapter.component';
+import { SetionComponent } from './setion/setion.component';
 import { SettingsComponent } from './settings/settings.component';
 import { TranslatorComponent } from './translator/translator.component';
 import { ComparisonComponent } from './comparison/comparison.component';
@@ -70,7 +70,7 @@ import { ComparisonComponent } from './comparison/comparison.component';
     AppComponent,
     HomeComponent,
     NovelComponent,
-    ChapterComponent,
+    SetionComponent,
     SettingsComponent,
     TranslatorComponent,
     ComparisonComponent,

@@ -1,4 +1,4 @@
-import { Translate } from '../model/translate';
+import { ITranslate } from '../model/interface/itranslate';
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
@@ -7,22 +7,22 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class NovelTranslatePipe implements PipeTransform {
 
-  transform(value: Translate, ...args: any[]): string {
+  transform(value: ITranslate, ...args: any[]): string {
     // console.log(value, args);
     let result: string;
 
-    if (value.translation === '' || value.translation === null) {
-      result = value.original;
+    if (value.translation) {
+      result = value.translation;
     }
     else {
-      result = value.translation;
+      result = value.original;
     }
 
     if (args.length !== 0) {
       switch (args[0]) {
         case 'full': {
           result = value.original;
-          if (value.translation !== '' && value.translation !== null) {
+          if (value.translation) {
             result += ' | ' + value.translation;
           }
           break;

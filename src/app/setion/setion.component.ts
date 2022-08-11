@@ -2,22 +2,22 @@ import { ElectronService } from '../services/electron.service';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Chapter } from '../model/chapter';
-import { IpcChannel } from '../model/ipc-channel';
+import { ISetion } from '../model/interface/isetion';
+import { IpcChannel } from '../model/enum/ipc-channel';
 import { SyosetuParserService } from '../services/syosetu-parser.service';
-import { Translate } from '../model/translate';
+import { ITranslate } from '../model/interface/itranslate';
 
 
 
 
 @Component({
   selector: 'app-chapter',
-  templateUrl: './chapter.component.html',
-  styleUrls: ['./chapter.component.scss']
+  templateUrl: './setion.component.html',
+  styleUrls: ['./setion.component.scss']
 })
-export class ChapterComponent implements OnInit, AfterViewInit {
+export class SetionComponent implements OnInit, AfterViewInit {
   chapterUrl: string;
-  chapter!: Chapter;
+  setion!: ISetion;
 
   re = new RegExp('^　', 'g');
   chapterContent: string = '';
@@ -38,11 +38,11 @@ export class ChapterComponent implements OnInit, AfterViewInit {
   async ngAfterViewInit(): Promise<void> {
     const html = await this.syosetuParser.downloadHtml(this.chapterUrl);
     const novelName = this.syosetuParser.parseNovelName(html);
-    const title = this.syosetuParser.parseChapterTitle(html);
-    const episode = this.syosetuParser.parseEpisode(html);
+    const title = this.syosetuParser.parseSetionTitle(html);
+    const episode = this.syosetuParser.parseChapterTitle(html);
     const rawContent = this.syosetuParser.parseContent(html);
     const no = this.syosetuParser.parseNovelNo(html);
-    const rawData: Translate[] = [];
+    const rawData: ITranslate[] = [];
     rawContent.forEach(async (value, index) => {
       rawData.push({
         original: value.replace(this.re, ''),
@@ -50,22 +50,22 @@ export class ChapterComponent implements OnInit, AfterViewInit {
       });
     });
 
-    this.chapter = {
-      novelName: {
-        original: novelName,
-        translation: ''
-      },
-      episodeName: {
-        original: episode,
-        translation: ''
-      },
-      name: {
-        original: title,
-        translation: ''
-      },
-      url: this.chapterUrl,
-      sentences: rawData
-    };
+    // this.chapter = {
+    //   novelName: {
+    //     original: novelName,
+    //     translation: ''
+    //   },
+    //   episodeName: {
+    //     original: episode,
+    //     translation: ''
+    //   },
+    //   title: {
+    //     original: title,
+    //     translation: ''
+    //   },
+    //   url: this.chapterUrl,
+    //   sentences: rawData
+    // };
 
 
   }
@@ -80,7 +80,7 @@ export class ChapterComponent implements OnInit, AfterViewInit {
   goTranslator(): void {
     this.router.navigate(['translator'], {
       state: {
-        chapter: this.chapter
+        chapter: this.setion
       }
     });
 

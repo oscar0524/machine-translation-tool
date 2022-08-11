@@ -5,7 +5,8 @@ import { Subscription } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
 import { ElectronService } from './services/electron.service';
-import { IpcChannel } from './model/ipc-channel';
+import { IpcChannel } from './model/enum/ipc-channel';
+import { SqliteService } from './services/sqlite.service';
 
 @Component({
   selector: 'app-root',
@@ -23,9 +24,11 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private electronService: ElectronService,
     private router: Router,
-    private cdRef: ChangeDetectorRef) {
+    private cdRef: ChangeDetectorRef,
+    private sqlite: SqliteService) {
     if (electronService.isElectron) {
       console.log('Electron start!')
+
     }
 
   }
@@ -36,6 +39,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
+    this.sqlite.init()
     this._scrollSubscription = this.scrollbarRef.verticalScrolled
       .pipe(
         map((e: any) => (e.target.scrollTop > 100)),

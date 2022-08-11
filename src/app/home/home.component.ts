@@ -2,10 +2,7 @@ import { ElectronService } from '../services/electron.service';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, AfterViewInit, AfterContentInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SyosetuParserService } from '../services/syosetu-parser.service';
-import { Novel } from '../model/novel';
-import { Translate } from '../model/translate';
-import { Chapter } from '../model/chapter';
-import { IpcChannel } from '../model/ipc-channel';
+import { IpcChannel } from '../model/enum/ipc-channel';
 import { SyosetuNovelParserService } from '../services/syosetu-novel-parser.service';
 
 
@@ -16,8 +13,8 @@ import { SyosetuNovelParserService } from '../services/syosetu-novel-parser.serv
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent implements OnInit, AfterViewInit, AfterContentInit {
-
-  novelUrl = 'https://ncode.syosetu.com/n6970df/176/';
+  //'https://ncode.syosetu.com/n6970df/176/'
+  novelUrl = 'https://ncode.syosetu.com/n6970df/';
 
   re = new RegExp('^　', 'g');
 
@@ -55,8 +52,6 @@ export class HomeComponent implements OnInit, AfterViewInit, AfterContentInit {
   async searchNovel(): Promise<void> {
     // 判斷是小說頁還是章節頁
     const splitUrl = this.splitUrl(this.novelUrl);
-    // console.log(splitUrl);
-    let newNovel: Novel;
     if (splitUrl.length === 2) {
       // 小說
 

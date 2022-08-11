@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { NovelComponent } from './novel/novel.component';
-import { ChapterComponent } from './chapter/chapter.component';
+import { SetionComponent } from './setion/setion.component';
 import { ComparisonComponent } from './comparison/comparison.component';
 import { TranslatorComponent } from './translator/translator.component';
 
@@ -21,7 +21,7 @@ const routes: Routes = [
   },
   {
     path: 'chapter', // 'chapter/:chapterIndex'
-    component: ChapterComponent
+    component: SetionComponent
   },
   {
     path: 'translator',

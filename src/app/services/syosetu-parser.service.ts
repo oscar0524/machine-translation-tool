@@ -51,7 +51,7 @@ export class SyosetuParserService {
     return no;
   }
 
-  public parseChapterTitle(html: string): string {
+  public parseSetionTitle(html: string): string {
     let pattern = /<p class="novel_subtitle">(.*?)<\/p>/gsm;
     let match = pattern.exec(html);
     let title = "";
@@ -68,7 +68,7 @@ export class SyosetuParserService {
     return title;
   }
 
-  public parseEpisode(html: string): string {
+  public parseChapterTitle(html: string): string {
     const pattern = /class="chapter_title">(.*?)<\/p>/gsm;
     const match = pattern.exec(html);
     let episode = "";

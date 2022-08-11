@@ -2,18 +2,20 @@
     <mat-icon>arrow_back</mat-icon>
     返回
 </button>
-<mat-card class="mb-sm">
-    <mat-card-title>{{novelName}}</mat-card-title>
-    <mat-card-subtitle>作者：{{writerName}}</mat-card-subtitle>
+<mat-card *ngIf="novel" class="mb-sm">
+    <mat-card-title>{{novel.name | novelTranslate}}</mat-card-title>
+    <mat-card-subtitle *ngIf="novel.writer">作者：{{novel.writer.name }}</mat-card-subtitle>
 </mat-card>
-
-<mat-expansion-panel *ngFor="let episode of episodes">
-    <mat-expansion-panel-header>
-        <mat-panel-title>
-            {{episode.episodeName}}
-        </mat-panel-title>
-    </mat-expansion-panel-header>
-    <mat-action-list>
-        <button mat-list-item *ngFor="let item of episode.chapters" (click)="goChapter(item)"> {{item[1]}} </button>
-    </mat-action-list>
-</mat-expansion-panel>
+<div *ngIf="novel && novel.chapters">
+    <mat-expansion-panel *ngFor="let chapter of novel.chapters" (opened)="openChapter(chapter)">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                {{chapter.title | novelTranslate}}
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-action-list>
+            <button mat-list-item *ngFor="let setion of chapter.setions" (click)="goChapter(setion)">
+                {{setion.title | novelTranslate}} </button>
+        </mat-action-list>
+    </mat-expansion-panel>
+</div>
